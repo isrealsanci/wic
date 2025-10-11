@@ -10,10 +10,22 @@
     "description": "Crack the secret code in this thrilling game of logic and numbers. Choose your difficulty level, compete for points, and enjoy the challenge.",
     "iconUrl": "https://wtc.exapp.xyz/lockcode-icon.png",
     "homeUrl": "https://wtc.exapp.xyz/",
-    "imageUrl": "https://wtc.exapp.xyz/lockcode-icon.png",
+    "imageUrl": "https://wtc.exapp.xyz/embed.png",
     "buttonTitle": "Play",
     "splashImageUrl": "https://wtc.exapp.xyz/lockcode-icon.png",
     "splashBackgroundColor": "#000000",
-    "webhookUrl": "https://wtc.exapp.xyz/api/webhook"
+    "webhookUrl": "https://wtc.exapp.xyz/api/webhook",
+    "primaryCategory": "game",
+    "tags": [
+      "rewards",
+      "leaderboard",
+      "farcaster",
+      "earn"
+    ],
+    "heroImageUrl": "https://wtc.exapp.xyz/lockcode-icon.png",
+    "tagline": "Game Brain",
+    "ogTitle": "Earn",
+    "ogDescription": "Crack the secret code in this thrilling game of logic and numbers.",
+    "ogImageUrl": "https://wtc.exapp.xyz/lockcode-icon.png"
   }
 }
