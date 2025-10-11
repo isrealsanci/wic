@@ -40,12 +40,6 @@ function Game({ address }: GameProps) {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    sdk.actions.ready()
-      .then(() => sdk.actions.addMiniApp())
-      .catch((e) => console.warn("SDK ready error:", e));
-  }, []);
-
-  useEffect(() => {
     const handleResize = () => setIsMobile(window.matchMedia('(max-width: 640px)').matches);
     handleResize();
     window.addEventListener('resize', handleResize);
@@ -58,6 +52,12 @@ function Game({ address }: GameProps) {
     document.documentElement.classList.toggle('dark', isDark);
   }, [isDark]);
 
+   useEffect(() => {
+    sdk.actions.ready()
+      .then(() => sdk.actions.addMiniApp())
+      .catch((e) => console.warn("SDK ready error:", e));
+  }, []);
+  
   const startNewGame = () => {
     setTargetNumber(generateRandomNumber());
     setCurrentGuess('');
