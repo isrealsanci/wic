@@ -1,0 +1,18 @@
+{
+  "accountAssociation": {
+    "header": "eyJmaWQiOjI5MTc1MiwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweDE0Mzc2NjcwMjQ3Mzc0MWM2ODIzYzBjMUVBMTRjOTg3NTFFNjBFRTAifQ",
+    "payload": "eyJkb21haW4iOiJ3dGMuZXhhcHAueHl6In0",
+    "signature": "MHhlNGU5MGFmM2Q2ZTAwZGY0OTM1ODkyMjFiNTdjN2ZiMDhhNDI2ZGY3NDQ0NjliOTJjMmEwOWRiODdhZWJkM2U3MzBiMGI5MWIxMjM3Mjk1ZTQ5YjkyZDc0M2YzMTU5MWFkZjc4YTY5NDNhZDYxZjU4MGI1NWRlNjcyOGQ5MDk0MzFi"
+  },
+  "frame": {
+    "version": "1",
+    "name": "What's The Code?",
+    "iconUrl": "https://wtc.exapp.xyz/lockcode-icon.svg",
+    "homeUrl": "https://wtc.exapp.xyz",
+    "imageUrl": "https://wtc.exapp.xyz/lockcode-icon.svg",
+    "buttonTitle": "Play",
+    "splashImageUrl": "https://wtc.exapp.xyz/lockcode-icon.svg",
+    "splashBackgroundColor": "#000000",
+    "webhookUrl": "https://wtc.exapp.xyz/api/webhook"
+  }
+}

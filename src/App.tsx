@@ -14,6 +14,7 @@ import { DIFFICULTY_CONFIG } from './utils/gameConfig';
 import { getGameStats, saveGameResult } from './utils/storage';
 import './i18n/config';
 import { LockCodeIcon } from './components/icons/LockCodeIcon';
+import { sdk } from "@farcaster/miniapp-sdk";
 
 function App() {
   const [targetNumber, setTargetNumber] = useState('');
@@ -30,6 +31,12 @@ function App() {
   const [stats, setStats] = useState(() => getGameStats());
   const [isMobile, setIsMobile] = useState(false);
 
+  useEffect(() => {
+    sdk.actions.ready()
+      .then(() => sdk.actions.addMiniApp())
+      .catch((e) => console.warn("SDK ready error:", e));
+  }, []);
+  
   useEffect(() => {
     const handleResize = () => setIsMobile(window.matchMedia('(max-width: 640px)').matches);
     handleResize(); 
