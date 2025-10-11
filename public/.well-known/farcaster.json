@@ -6,10 +6,10 @@
   },
   "frame": {
     "version": "1",
-    "name": "What's The Code?",
-    "iconUrl": "https://wtc.exapp.xyz/lockcode-icon.svg",
+    "name": "Whats The Code?",
+    "iconUrl": "https://wtc.exapp.xyz/lockcode-icon.png",
     "homeUrl": "https://wtc.exapp.xyz",
-    "imageUrl": "https://wtc.exapp.xyz/lockcode-icon.svg",
+    "imageUrl": "https://wtc.exapp.xyz/lockcode-icon.png",
     "buttonTitle": "Play",
     "splashImageUrl": "https://wtc.exapp.xyz/lockcode-icon.svg",
     "splashBackgroundColor": "#000000",
