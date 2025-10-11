@@ -1,3 +1,6 @@
+// App.tsx
+
+import { useAccount } from 'wagmi';
 import { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { useTranslation } from 'react-i18next';
@@ -7,6 +10,7 @@ import GameOverStatus from './components/OnGame/GameOverStatus';
 import Header from './components/Header/Header';
 import Footer from './components/Footer';
 import DifficultySelector from './components/DifficultySelector';
+import { ConnectWallet } from './components/Connect';
 import GameStats from './components/Stats/GameStats';
 import { generateRandomNumber, checkGuess } from './utils/gameLogic';
 import { Difficulty } from './types/game';
@@ -16,7 +20,11 @@ import './i18n/config';
 import { LockCodeIcon } from './components/icons/LockCodeIcon';
 import { sdk } from "@farcaster/miniapp-sdk";
 
-function App() {
+interface GameProps {
+  address?: `0x${string}`;
+}
+
+function Game({ address }: GameProps) {
   const [targetNumber, setTargetNumber] = useState('');
   const [currentGuess, setCurrentGuess] = useState('');
   const [guesses, setGuesses] = useState<Array<{ number: string; matches: number; positions: number }>>([]);
@@ -36,10 +44,10 @@ function App() {
       .then(() => sdk.actions.addMiniApp())
       .catch((e) => console.warn("SDK ready error:", e));
   }, []);
-  
+
   useEffect(() => {
     const handleResize = () => setIsMobile(window.matchMedia('(max-width: 640px)').matches);
-    handleResize(); 
+    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -115,6 +123,7 @@ function App() {
         stats={stats}
         setStats={setStats}
         onHomeClick={returnToHome}
+        address={address}
       />
 
       <div className="pt-32 p-4 sm:p-8">
@@ -180,6 +189,17 @@ function App() {
       </div>
     </div>
   );
+}
+
+
+function App() {
+  const { isConnected, address } = useAccount();
+
+  if (!isConnected) {
+    return <ConnectWallet />;
+  }
+
+  return <Game address={address} />;
 }
 
 export default App;

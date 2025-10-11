@@ -11,6 +11,9 @@
   },
   "dependencies": {
     "@farcaster/miniapp-sdk": "^0.2.0",
+    "@reown/appkit": "^1.8.9",
+    "@reown/appkit-adapter-wagmi": "^1.8.9",
+    "@tanstack/react-query": "^5.90.2",
     "@vercel/analytics": "^1.4.1",
     "canvas-confetti": "^1.9.2",
     "i18next": "^23.10.0",
@@ -20,7 +23,9 @@
     "react-dom": "^18.3.1",
     "react-i18next": "^14.0.5",
     "sonner": "^1.7.0",
-    "uuid": "^11.0.3"
+    "uuid": "^11.0.3",
+    "viem": "^2.38.0",
+    "wagmi": "^2.18.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",

@@ -13,9 +13,11 @@ interface HeaderProps {
   stats: GameStats;
   setStats: (stats: GameStats) => void;
   onHomeClick: () => void;
+  address?: `0x${string}`;
 }
 
-const Header: React.FC<HeaderProps> = ({ isDark, onToggleTheme, stats, onHomeClick }) => {
+
+const Header: React.FC<HeaderProps> = ({ isDark, onToggleTheme, stats, onHomeClick, address }) => {
   const { t } = useTranslation();
   const [isStatsOpen, setIsStatsOpen] = useState(false);
   const [isInstructionsOpen, setIsInstructionsOpen] = useState(false);
@@ -67,6 +69,14 @@ const Header: React.FC<HeaderProps> = ({ isDark, onToggleTheme, stats, onHomeCli
                 </button>
               </Tooltip>
               <ThemeToggle isDark={isDark} onToggle={onToggleTheme} />
+               {address && (
+                <>
+                  <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 hidden sm:block" />
+                  <div className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white text-sm font-mono px-3 py-1.5 rounded-full hidden sm:block">
+                    <appkit-button />
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>
