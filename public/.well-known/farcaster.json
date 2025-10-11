@@ -17,10 +17,7 @@
     "webhookUrl": "https://wtc.exapp.xyz/api/webhook",
     "primaryCategory": "game",
     "tags": [
-      "rewards",
-      "leaderboard",
-      "farcaster",
-      "earn"
+      "games"
     ],
     "heroImageUrl": "https://wtc.exapp.xyz/lockcode-icon.png",
     "tagline": "Game Brain",
