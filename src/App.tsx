@@ -52,12 +52,6 @@ function Game({ address }: GameProps) {
     document.documentElement.classList.toggle('dark', isDark);
   }, [isDark]);
 
-   useEffect(() => {
-    sdk.actions.ready()
-      .then(() => sdk.actions.addMiniApp())
-      .catch((e) => console.warn("SDK ready error:", e));
-  }, []);
-  
   const startNewGame = () => {
     setTargetNumber(generateRandomNumber());
     setCurrentGuess('');
@@ -194,6 +188,12 @@ function Game({ address }: GameProps) {
 
 function App() {
   const { isConnected, address } = useAccount();
+
+  useEffect(() => {
+    sdk.actions.ready()
+      .then(() => sdk.actions.addMiniApp())
+      .catch((e) => console.warn("SDK ready error:", e));
+  }, []);
 
   if (!isConnected) {
     return <ConnectWallet />;
