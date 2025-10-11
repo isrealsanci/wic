@@ -15,9 +15,12 @@
     "splashImageUrl": "https://wtc.exapp.xyz/lockcode-icon.png",
     "splashBackgroundColor": "#000000",
     "webhookUrl": "https://wtc.exapp.xyz/api/webhook",
-    "primaryCategory": "game",
+    "primaryCategory": "games",
     "tags": [
-      "games"
+      "rewards",
+      "leaderboard",
+      "farcaster",
+      "earn"
     ],
     "heroImageUrl": "https://wtc.exapp.xyz/lockcode-icon.png",
     "tagline": "Game Brain",
