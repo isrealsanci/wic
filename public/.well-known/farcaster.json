@@ -11,7 +11,7 @@
     "homeUrl": "https://wtc.exapp.xyz",
     "imageUrl": "https://wtc.exapp.xyz/lockcode-icon.png",
     "buttonTitle": "Play",
-    "splashImageUrl": "https://wtc.exapp.xyz/lockcode-icon.svg",
+    "splashImageUrl": "https://wtc.exapp.xyz/lockcode-icon.png",
     "splashBackgroundColor": "#000000",
     "webhookUrl": "https://wtc.exapp.xyz/api/webhook"
   }
