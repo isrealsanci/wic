@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@farcaster/miniapp-sdk": "^0.2.0",
+    "@farcaster/miniapp-wagmi-connector": "^1.1.0",
     "@reown/appkit": "^1.8.9",
     "@reown/appkit-adapter-wagmi": "^1.8.9",
     "@tanstack/react-query": "^5.90.2",

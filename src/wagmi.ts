@@ -1,6 +1,7 @@
 import { createAppKit } from "@reown/appkit/react";
 import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
 import { base } from "@reown/appkit/networks";
+import { farcasterMiniApp as miniAppConnector } from '@farcaster/miniapp-wagmi-connector'
 
 const projectId = "d18d59aafb4364895f6e731472cd8931";
 
@@ -8,7 +9,7 @@ export const wagmiAdapter = new WagmiAdapter({
   projectId,
   networks: [base],
   ssr: true,
-  connectors: [],
+  connectors: [miniAppConnector()],
 });
 
 createAppKit({
