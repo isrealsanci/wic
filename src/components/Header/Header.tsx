@@ -73,7 +73,7 @@ const Header: React.FC<HeaderProps> = ({ isDark, onToggleTheme, stats, onHomeCli
                 <>
                   <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 hidden sm:block" />
                   <div className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white text-sm font-mono px-3 py-1.5 rounded-full hidden sm:block">
-                    <appkit-account-button balance='hide'/>
+                    <appkit-account-button balance='hide' />
                   </div>
                 </>
               )}
