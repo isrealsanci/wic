@@ -16,15 +16,21 @@ interface HeaderProps {
   address?: `0x${string}`;
 }
 
-
-const Header: React.FC<HeaderProps> = ({ isDark, onToggleTheme, stats, onHomeClick, address }) => {
+const Header: React.FC<HeaderProps> = ({
+  isDark,
+  onToggleTheme,
+  stats,
+  onHomeClick,
+  address,
+}) => {
   const { t } = useTranslation();
   const [isStatsOpen, setIsStatsOpen] = useState(false);
   const [isInstructionsOpen, setIsInstructionsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.matchMedia('(max-width: 640px)').matches);
+    const handleResize = () =>
+      setIsMobile(window.matchMedia('(max-width: 640px)').matches);
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
@@ -48,19 +54,20 @@ const Header: React.FC<HeaderProps> = ({ isDark, onToggleTheme, stats, onHomeCli
                 )}
               </button>
             </Tooltip>
+
             <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 hidden sm:block" />
+
             <div className="flex items-center space-x-2">
               <Tooltip content={t('viewInstructions')}>
                 <button
                   onClick={() => setIsInstructionsOpen(true)}
                   className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                 >
-                  <div className="relative">
-                    <HelpCircle className="w-6 h-6 text-gray-600 dark:text-gray-300" />
-                  </div>
+                  <HelpCircle className="w-6 h-6 text-gray-600 dark:text-gray-300" />
                 </button>
               </Tooltip>
-              <Tooltip content={t('View History')}>
+
+              <Tooltip content={t('viewHistory')}>
                 <button
                   onClick={() => setIsStatsOpen(true)}
                   className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
@@ -68,19 +75,19 @@ const Header: React.FC<HeaderProps> = ({ isDark, onToggleTheme, stats, onHomeCli
                   <History className="w-6 h-6 text-gray-600 dark:text-gray-300" />
                 </button>
               </Tooltip>
+
               <ThemeToggle isDark={isDark} onToggle={onToggleTheme} />
-               {address && (
-                <>
-                  <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 hidden sm:block" />
-                  <div className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white text-sm font-mono px-3 py-1.5 rounded-full hidden sm:block">
-                    <appkit-account-button balance='hide' />
-                  </div>
-                </>
+
+              {address && (
+                <div className="ml-2 header-account-button-wrapper">
+                  <appkit-account-button balance="hide" />
+                </div>
               )}
             </div>
           </div>
         </div>
       </div>
+
       <StatsDrawer
         isOpen={isStatsOpen}
         onClose={() => setIsStatsOpen(false)}
