@@ -70,5 +70,3 @@ export const deleteGameResult = (index: string) => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(newStats));
   return newStats
 }
-
-

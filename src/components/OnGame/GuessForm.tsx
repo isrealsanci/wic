@@ -53,7 +53,7 @@ const GuessForm: React.FC<GuessFormProps> = ({ value, onChange, onSubmit, error 
             onChange={(e) => handleDigitChange(index, e.target.value)}
             onKeyDown={(e) => handleKeyDown(index, e)}
             className="w-16 h-16 text-center text-2xl font-mono border-2 rounded-lg
-                     border-gray-300 dark:border-gray-600 
+                     border-gray-300 dark:border-gray-600
                      bg-white dark:bg-gray-800
                      text-gray-900 dark:text-gray-100
                      focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400
@@ -69,8 +69,8 @@ const GuessForm: React.FC<GuessFormProps> = ({ value, onChange, onSubmit, error 
         <div className="flex justify-center">
           <button
             onClick={onSubmit}
-            className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 
-                     focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 
+            className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700
+                     focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2
                      transition-colors flex items-center space-x-2"
           >
             <span>{t('submitGuess')}</span>

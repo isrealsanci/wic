@@ -1,5 +1,3 @@
-// App.tsx
-
 import { useAccount } from 'wagmi';
 import { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
@@ -16,6 +14,7 @@ import { generateRandomNumber, checkGuess } from './utils/gameLogic';
 import { Difficulty } from './types/game';
 import { DIFFICULTY_CONFIG } from './utils/gameConfig';
 import { getGameStats, saveGameResult } from './utils/storage';
+import { submitGameResult } from './utils/api';
 import './i18n/config';
 import { LockCodeIcon } from './components/icons/LockCodeIcon';
 import { sdk } from "@farcaster/miniapp-sdk";
@@ -39,6 +38,12 @@ function Game({ address }: GameProps) {
   const [stats, setStats] = useState(() => getGameStats());
   const [isMobile, setIsMobile] = useState(false);
 
+  const [chances, setChances] = useState(0);
+  const [nextClaimTime, setNextClaimTime] = useState<number | null>(null);
+  const COOLDOWN_HOURS = 6;
+
+  const { t } = useTranslation();
+
   useEffect(() => {
     const handleResize = () => setIsMobile(window.matchMedia('(max-width: 640px)').matches);
     handleResize();
@@ -46,13 +51,37 @@ function Game({ address }: GameProps) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const { t } = useTranslation();
-
   useEffect(() => {
     document.documentElement.classList.toggle('dark', isDark);
   }, [isDark]);
 
+  useEffect(() => {
+    const storedChances = localStorage.getItem('gameChances');
+    const storedNextClaimTime = localStorage.getItem('nextClaimTime');
+    if (storedChances) {
+      setChances(parseInt(storedChances, 10));
+    }
+    if (storedNextClaimTime) {
+      const nextTime = parseInt(storedNextClaimTime, 10);
+      if (Date.now() > nextTime) {
+        setNextClaimTime(null);
+        localStorage.removeItem('nextClaimTime');
+      } else {
+        setNextClaimTime(nextTime);
+      }
+    }
+  }, []);
+
+
   const startNewGame = () => {
+    if (chances <= 0) {
+      alert("You are out of chances! Please claim more.");
+      return;
+    }
+    const newChances = chances - 1;
+    setChances(newChances);
+    localStorage.setItem('gameChances', newChances.toString());
+
     setTargetNumber(generateRandomNumber());
     setCurrentGuess('');
     setGuesses([]);
@@ -69,6 +98,17 @@ function Game({ address }: GameProps) {
     setGameOver(false);
     setWon(false);
     setError('');
+  };
+
+  const handleClaimChances = () => {
+    const newChances = chances + 3;
+    const nextClaim = Date.now() + COOLDOWN_HOURS * 60 * 60 * 1000;
+
+    setChances(newChances);
+    setNextClaimTime(nextClaim);
+
+    localStorage.setItem('gameChances', newChances.toString());
+    localStorage.setItem('nextClaimTime', nextClaim.toString());
   };
 
   const handleGuess = () => {
@@ -90,6 +130,7 @@ function Game({ address }: GameProps) {
     setError('');
 
     const config = DIFFICULTY_CONFIG[difficulty];
+    let gameResult: 'win' | 'loss' | null = null;
 
     if (currentGuess === targetNumber) {
       setWon(true);
@@ -101,13 +142,18 @@ function Game({ address }: GameProps) {
         spread: 70,
         origin: { y: 0.6 }
       });
+      gameResult = 'win';
     } else if (newGuesses.length >= config.attempts) {
       setGameOver(true);
       const newStats = saveGameResult(difficulty, newGuesses.length, false, config.losePoints, targetNumber);
       setStats(newStats);
+      gameResult = 'loss';
+    }
+
+    if (gameResult && address) {
+      submitGameResult(address, gameResult, difficulty);
     }
   };
-
 
   return (
     <div className="min-h-screen bg-math-pattern bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
@@ -121,7 +167,7 @@ function Game({ address }: GameProps) {
       />
 
       <div className="pt-32 p-4 sm:p-8">
-        <div className="max-w-md  mx-auto bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden transition-colors duration-200 md:my-16 sm:my-10">
+        <div className="max-w-md mx-auto bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden transition-colors duration-200 md:my-16 sm:my-10">
           <div className="p-6 sm:p-8">
             {!gameStarted ? (
               <div className="space-y-8">
@@ -133,6 +179,21 @@ function Game({ address }: GameProps) {
                     {t('title')}
                   </h1>
                 )}
+                <div className="text-center p-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
+                  <p className="text-2xl font-bold text-gray-800 dark:text-white">Chances: {chances}</p>
+                  {nextClaimTime ? (
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                      Next claim at: {new Date(nextClaimTime).toLocaleTimeString()}
+                    </p>
+                  ) : (
+                    <button
+                      onClick={handleClaimChances}
+                      className="mt-2 px-4 py-2 bg-green-500 text-white text-sm font-semibold rounded-lg hover:bg-green-600 transition-colors"
+                    >
+                      Claim 3 Chances
+                    </button>
+                  )}
+                </div>
                 <GameStats stats={stats} />
                 <DifficultySelector
                   selected={difficulty}
@@ -141,7 +202,8 @@ function Game({ address }: GameProps) {
                 <div className="text-center">
                   <button
                     onClick={startNewGame}
-                    className="px-8 py-3 bg-indigo-600 text-white text-lg font-semibold rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors"
+                    className="px-8 py-3 bg-indigo-600 text-white text-lg font-semibold rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors disabled:bg-gray-400 dark:disabled:bg-gray-600"
+                    disabled={chances <= 0}
                   >
                     {t('startGame')}
                   </button>
@@ -156,7 +218,6 @@ function Game({ address }: GameProps) {
                     </p>
                   </div>
                 )}
-
                 {gameOver ? (
                   <GameOverStatus
                     won={won}
@@ -172,19 +233,16 @@ function Game({ address }: GameProps) {
                     error={error}
                   />
                 )}
-
                 <GuessList guesses={guesses} />
               </div>
             )}
           </div>
-
           <Footer />
         </div>
       </div>
     </div>
   );
 }
-
 
 function App() {
   const { isConnected, address } = useAccount();

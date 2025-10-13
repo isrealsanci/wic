@@ -14,7 +14,7 @@
     "buttonTitle": "Crack Now",
     "splashImageUrl": "https://wtc.exapp.xyz/lockcode-icon.png",
     "splashBackgroundColor": "#000000",
-    "webhookUrl": "https://wtc.exapp.xyz/api/webhook",
+    "webhookUrl": "https://api.neynar.com/f/app/de3a60c2-c46f-4f41-a0b5-3ad8f4ca01fd/event",
     "primaryCategory": "games",
     "tags": [
       "rewards",
