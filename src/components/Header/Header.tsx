@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Brain, History, HelpCircle } from 'lucide-react';
+import { Brain, History, HelpCircle, BarChart2 } from 'lucide-react'; 
 import ThemeToggle from './ThemeToggle';
 import StatsDrawer from '../Stats/StatsDrawer';
 import InstructionsDrawer from '../Instructions/InstructionsDrawer';
+import LeaderboardDrawer from '../Leaderboard/LeaderboardDrawer'; 
 import { GameStats } from '../../types/game';
 import Tooltip from '../Tooltip';
 
@@ -26,6 +27,7 @@ const Header: React.FC<HeaderProps> = ({
   const { t } = useTranslation();
   const [isStatsOpen, setIsStatsOpen] = useState(false);
   const [isInstructionsOpen, setIsInstructionsOpen] = useState(false);
+  const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false); 
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -58,21 +60,31 @@ const Header: React.FC<HeaderProps> = ({
             <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 hidden sm:block" />
 
             <div className="flex items-center space-x-2">
+              {/* Tombol Leaderboard Baru */}
+              <Tooltip content={t('viewLeaderboard', 'View Leaderboard')}>
+                <button
+                  onClick={() => setIsLeaderboardOpen(true)}
+                  className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                >
+                  <BarChart2 className="w-6 h-6 text-gray-600 dark:text-gray-300" />
+                </button>
+              </Tooltip>
+
+              <Tooltip content={t('viewHistory', 'View History')}>
+                <button
+                  onClick={() => setIsStatsOpen(true)}
+                  className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                >
+                  <History className="w-6 h-6 text-gray-600 dark:text-gray-300" />
+                </button>
+              </Tooltip>
+
               <Tooltip content={t('viewInstructions')}>
                 <button
                   onClick={() => setIsInstructionsOpen(true)}
                   className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                 >
                   <HelpCircle className="w-6 h-6 text-gray-600 dark:text-gray-300" />
-                </button>
-              </Tooltip>
-
-              <Tooltip content={t('view History')}>
-                <button
-                  onClick={() => setIsStatsOpen(true)}
-                  className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                >
-                  <History className="w-6 h-6 text-gray-600 dark:text-gray-300" />
                 </button>
               </Tooltip>
 
@@ -96,6 +108,11 @@ const Header: React.FC<HeaderProps> = ({
       <InstructionsDrawer
         isOpen={isInstructionsOpen}
         onClose={() => setIsInstructionsOpen(false)}
+      />
+      
+      <LeaderboardDrawer
+        isOpen={isLeaderboardOpen}
+        onClose={() => setIsLeaderboardOpen(false)}
       />
     </>
   );
