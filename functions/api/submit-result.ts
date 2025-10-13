@@ -1,7 +1,7 @@
 /// <reference types="@cloudflare/workers-types" />
 
 import { NeynarAPIClient } from "@neynar/nodejs-sdk";
-import { Pool } from 'pg';
+import { Pool } from '@neondatabase/serverless';
 
 // --- Type Definitions ---
 type Difficulty = 'easy' | 'medium' | 'hard';
