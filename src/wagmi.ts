@@ -23,12 +23,12 @@ createAppKit({
     icons: ["https://wtc.exapp.xyz.xyz/lockcode-icon.png"],
   },
   features: {
-    email: false,
-    socials: false,
+    connectMethodsOrder: ["wallet", "email"],
     swaps: false,
     onramp: false,
     history: false,
     send: true,
+  
   },
   themeMode: "dark",
 });

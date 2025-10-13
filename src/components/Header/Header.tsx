@@ -67,7 +67,7 @@ const Header: React.FC<HeaderProps> = ({
                 </button>
               </Tooltip>
 
-              <Tooltip content={t('viewHistory')}>
+              <Tooltip content={t('view History')}>
                 <button
                   onClick={() => setIsStatsOpen(true)}
                   className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
