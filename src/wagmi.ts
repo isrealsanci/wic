@@ -24,8 +24,6 @@ createAppKit({
   },
   features: {
     connectMethodsOrder: ["wallet", "email"],
-    swaps: false,
-    onramp: false,
     history: false,
     send: true,
   
